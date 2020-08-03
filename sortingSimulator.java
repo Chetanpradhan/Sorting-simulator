@@ -14,8 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import java.util.*;
 
-public class VisualSorting
-{
+public class VisualSorting {
 	//Frame
 	private JFrame jf;
 
@@ -130,53 +129,44 @@ public class VisualSorting
 	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 
 	//Constructor
-	public VisualSorting()
-	{
+	public VisualSorting() {
 		shuffleList();	//Creates the random list
 		shuffleList_user(); //Creates the used defined list
 		initialize();	//Initialize the GUI
 	}
 	
 	//unique random number generater(from 1 to 25)
-	public int randomNumber(int i)
-	{
+	public int randomNumber(int i) {
 		int flag, rand;
-		do
-		{
+		do {
 			rand = r.nextInt(26);
 			flag = 0;
-			for(int j = i; j >= 0; j--)
-			{
+			for(int j = i; j >= 0; j--) {
 				if(list[j] == rand)
 					flag = 1;
 			}
-		}while(flag == 1); 
+		} while(flag == 1); 
 		return rand;
 	}
 
-	public void createList()
-	{
+	public void createList() {
 		int rand;
 		list = new int[len];	//Creates list equal to length
-		for(int i = 0; i < len; i++)
-		{
+		for(int i = 0; i < len; i++) {
 			rand = randomNumber(i);
 			list[i] = rand;
 		}
 	}
 
-	public void shuffleList()
-	{
+	public void shuffleList() {
 		if(len == 0)
 			JOptionPane.showMessageDialog(jf, "Select the size of array");		
 		createList();
 		for(int i = 0; i < k; i++)
 			c[i] = 0;
 		k = 0;
-		for(int a = 0; a < 500; a++)	//Shuffle runs 500 times
-		{
-			for(int i = 0; i < len; i++)	//To access each element of the list
-			{	
+		for(int a = 0; a < 500; a++) {	//Shuffle runs 500 times
+			for(int i = 0; i < len; i++) {	//To access each element of the list
 				int rand = r.nextInt(len);
 				int temp = list[i];
 				list[i] = list[rand];
@@ -187,19 +177,16 @@ public class VisualSorting
 		shuffled = true;
 	}
 	
-	public void createList_user()
-	{
+	public void createList_user() {
 		list = new int[25];	//Creates list equal to maximum value of length
 		list[0] = 0;
-		for(int i = 0; i < k; i++)
-		{
+		for(int i = 0; i < k; i++) {
 			if(c[i] != 0)
 				list[i] = c[i];	//Fills the list from 1 to k
 		}
 	}
 
-	public void shuffleList_user()
-	{
+	public void shuffleList_user() {
 		createList_user();
 		len = k;
 		if(len <= 1)
@@ -211,8 +198,7 @@ public class VisualSorting
 		shuffled = true;
 	}
 	
-	public void initialize()
-	{
+	public void initialize() {
 		//Set Up Frame
 		jf = new JFrame();
 		jf.setSize(1025, 635);
@@ -368,31 +354,26 @@ public class VisualSorting
 			c[i] = 0;
 
 		//Add Action Listeners
-		alg.addItemListener(new ItemListener()
-		{
-			public void itemStateChanged(ItemEvent e)
-			{
+		alg.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
 				curAlg = alg.getSelectedIndex();
 				information.setText(algInfo[curAlg]);
 				sortAlgorithm.setText(algData[curAlg]);			
 				green1.setText(gr[curAlg]);
-				if(curAlg == 9)
-				{
+				if(curAlg == 9) {
 					green.setVisible(false);
 					green1.setVisible(false);
 					red.setBounds(10, 25, 200, 25);
 					red1.setBounds(10, 35, 200, 25);
 				}
-				else if(curAlg == 10)
-				{
+				else if(curAlg == 10) {
 					green.setVisible(false);
 					green1.setForeground(Color.RED);
 					green1.setBounds(10, 45, 200, 25);
 					red.setBounds(10, 25, 200, 25);
 					red1.setBounds(10, 35, 200, 25);
 				}
-				else
-				{
+				else {
 					green.setVisible(true);
 					green1.setVisible(true);
 					green1.setForeground(Color.GREEN);
@@ -404,10 +385,8 @@ public class VisualSorting
 			}
 		});
 
-		graph.addItemListener(new ItemListener()
-		{
-			public void itemStateChanged(ItemEvent e)
-			{
+		graph.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
 				//canvas.setType(graph.getSelectedIndex());
 				type = graph.getSelectedIndex();
 				shuffleList();
@@ -416,13 +395,10 @@ public class VisualSorting
 			}
 		});
 	
-		sort.addActionListener(new ActionListener()
-		{
+		sort.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				if(shuffled)
-				{
+			public void actionPerformed(ActionEvent e) {
+				if(shuffled) {
 					sorting = true;
 					compare = 0;
 					acc = 0;
@@ -430,31 +406,25 @@ public class VisualSorting
 			}
 		});
 
-		shuffle.addActionListener(new ActionListener()
-		{
+		shuffle.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				shuffleList();
 				reset();
 			}
 		});
 
-		speed.addChangeListener(new ChangeListener()
-		{
+		speed.addChangeListener(new ChangeListener() {
 			@Override
-			public void stateChanged(ChangeEvent arg0)
-			{
+			public void stateChanged(ChangeEvent arg0) {
 				spd = (int)speed.getValue();
 				msL.setText(spd + " ms");
 			}
 		});
 
-		size.addChangeListener(new ChangeListener()
-		{
+		size.addChangeListener(new ChangeListener() {
 			@Override
-			public void stateChanged(ChangeEvent e)
-			{
+			public void stateChanged(ChangeEvent e) {
 				int val = size.getValue();
 				if(size.getValue() == 5)
 					val = 4;
@@ -470,35 +440,28 @@ public class VisualSorting
 			}
 		});
 		
-		Enter.addActionListener(new ActionListener()
-		{
+		Enter.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				int flag = 0;
-				try
-				{
+				try {
 					c[k] = Integer.parseInt(numTF.getText());
 					numTF.setText("");
-					if(c[k] > 25)
-					{
+					if(c[k] > 25) {
 						JOptionPane.showMessageDialog(jf, "Element cannot be greater than 25");
 						flag = 1;
 					}
-					if(c[k] <= 0)
-					{
+					if(c[k] <= 0) {
 						JOptionPane.showMessageDialog(jf, "Element must be greater than 0");
 						flag = 1;
 					}					
-					if(flag == 0)					
-					{
+					if(flag == 0) {
 						k++;
 						shuffleList1();	
 						reset();
 					}
 				}
-				catch(NumberFormatException ex)
-				{
+				catch(NumberFormatException ex) {
 					JOptionPane.showMessageDialog(jf, "Please enter integers");
 				}					
 			}
@@ -507,14 +470,10 @@ public class VisualSorting
 	}
 
 	//Sorting State
-	public void sorting()
-	{
-		if(sorting)
-		{
-			try
-			{
-				switch(curAlg)	//Current Algorithm is Executed
-				{
+	public void sorting() {
+		if(sorting) {
+			try {
+				switch(curAlg) {	//Current Algorithm is Executed
 					case 0 : algorithm.selectionSort();
 						 break;
 					case 1 : algorithm.bubbleSort();
@@ -544,8 +503,7 @@ public class VisualSorting
 						 break;
 				}
 			}
-			catch(IndexOutOfBoundsException e)//Expeption handler in case list access is out of bounds
-			{
+			catch(IndexOutOfBoundsException e) {	//Expeption handler in case list access is out of bounds
 			} 
 		}
 		reset();
@@ -553,28 +511,23 @@ public class VisualSorting
 	}
 
 	//Pause State
-	public void pause()
-	{
+	public void pause() {
 		int i = 0;
-		while(!sorting)	//Loop runs until sorting starts
-		{
+		while(!sorting)	{	//Loop runs until sorting starts
 			i++;
 			if(i > 100)
 				i = 0;
-			try
-			{
+			try {
 				Thread.sleep(1);
 			}
-			catch(Exception e)
-			{
+			catch(Exception e) {
 			}
 		}
 		sorting();	//Exit the loop and start sorting
 	}
 
 	//Reset Some Variables
-	public void reset()
-	{
+	public void reset() {
 		sorting = false;
 		current = -1;
 		check = -1;
@@ -583,20 +536,16 @@ public class VisualSorting
 	}
 
 	//Delay Method
-	public void delay()
-	{
-		try
-		{
+	public void delay() {
+		try {
 			Thread.sleep(spd);
 		}
-		catch(Exception e)
-		{
+		catch(Exception e) {
 		}
 	}
 
 	//Updates the Graph and Labels
-	public void Update()
-	{
+	public void Update() {
 		width = SIZE / 25;
 		canvas.repaint();
 		compareL.setForeground(Color.blue);
@@ -606,37 +555,29 @@ public class VisualSorting
 	}
 
 	//Main Method
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new VisualSorting();
 	}
 
 	//Sub Class to Control the Graph
-	class GraphCanvas extends JPanel
-	{
-		public GraphCanvas()
-		{
+	class GraphCanvas extends JPanel {
+		public GraphCanvas() {
 			setBackground(Color.black);
 		}
 
 		//Paint the Graph
-		public void paintComponent(Graphics g)
-		{
+		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			for(int i = 0; i < len; i++)	//Runs through each element of the list
-			{
+			for(int i = 0; i < len; i++) {	//Runs through each element of the list
 				int HEIGHT = list[i] * (width);	//Sets the height of the element on the graph
 				String text = Integer.toString(list[i]);
 				int fontSize = (int)((300 / width));
-				if(type == 0)	//Bar Graph Type
-				{	
+				if(type == 0) {	//Bar Graph Type
 					g.setColor(Color.white);	//Default Color
-					if(current > -1 && i == current)
-					{
+					if(current > -1 && i == current) {
 						g.setColor(Color.green);//Color of current element
 					}
-					if(check > -1 && i == check)
-					{
+					if(check > -1 && i == check) {
 						g.setColor(Color.red);//Color of checking element
 					}
 					//Draws the Bar and the Black Outline
@@ -647,15 +588,12 @@ public class VisualSorting
 					g.setFont(new Font("SansSerif", Font.BOLD, fontSize));
 					g.drawString(text, (width * i) + ((width / 2) - (width / 4)), (SIZE - (HEIGHT)) + ((width / 2) + (width / 4)));
 				}
-				else if(type == 1)	//Dot Plot Type
-				{	
+				else if(type == 1) {	//Dot Plot Type
 					g.setColor(Color.white);	//Default Color
-					if(current > -1 && i == current)
-					{
+					if(current > -1 && i == current) {
 						g.setColor(Color.green);//Color of current element
 					}
-					if(check > -1 && i == check)
-					{
+					if(check > -1 && i == check) {
 						g.setColor(Color.red);//Color of checking element
 					}
 					//Draws the Dot and the Black Outline
@@ -669,21 +607,16 @@ public class VisualSorting
 	}
 
 	//Sub Class for Algorithms
-	class SortingAlgorithms
-	{
-		public void selectionSort()
-		{
+	class SortingAlgorithms {
+		public void selectionSort() {
 			int c = 0;
-			while(c < len && sorting)
-			{
+			while(c < len && sorting) {
 				int sm = c;
 				current = c;
-				for(int i = c + 1; i < len; i++)
-				{
+				for(int i = c + 1; i < len; i++) {
 					if(!sorting)	
 						break;
-					if(list[i] < list[sm])
-					{
+					if(list[i] < list[sm]) {
 						sm = i;
 					}
 					check = i;
@@ -698,14 +631,11 @@ public class VisualSorting
 			}
 		}
 		
-		public void insertionSort(int start, int end)
-		{
-			for(int i = start + 1; i <= end; i++)
-			{
+		public void insertionSort(int start, int end) {
+			for(int i = start + 1; i <= end; i++) {
 				current = i;
 				int j = i;
-				while(list[j] < list[j - 1] && sorting)
-				{
+				while(list[j] < list[j - 1] && sorting) {
 					swap(j, j - 1);
 					check = j - 1;
 					compare++;
@@ -718,20 +648,16 @@ public class VisualSorting
 			}
 		}
 
-		public void bubbleSort()
-		{
+		public void bubbleSort() {
 			int c = 1;
 			boolean noswaps = false;
-			while(!noswaps && sorting)
-			{
+			while(!noswaps && sorting) {
 				current = len - c;
 				noswaps = true;
-				for(int i = 0; i < len - c; i++)
-				{
+				for(int i = 0; i < len - c; i++) {
 					if(!sorting)	
 						break;
-					if(list[i + 1] < list[i])
-					{
+					if(list[i + 1] < list[i]) {
 						noswaps = false;
 						swap(i, i + 1);
 					}
@@ -745,19 +671,15 @@ public class VisualSorting
 			}
 		}
 		
-		public void oddEvenSort()
-		{
+		public void oddEvenSort() {
 			int c = 0;
 			boolean noswaps = false;
-			while(!noswaps && sorting)
-			{
+			while(!noswaps && sorting) {
 				noswaps = true;
-				for(int i = 0 + off; i < len - 1; i += 2)
-				{
+				for(int i = 0 + off; i < len - 1; i += 2) {
 					if(!sorting)
 						break;
-					if(list[i + 1] < list[i])
-					{
+					if(list[i + 1] < list[i]) {
 						noswaps = false;
 						swap(i, i + 1);
 					}
@@ -773,33 +695,27 @@ public class VisualSorting
 			}
 		}
 		
-		public void cocktailSort()
-		{
+		public void cocktailSort() {
 			int c = 0;
 			boolean noswaps = false;
-			while(!noswaps && sorting)
-			{
+			while(!noswaps && sorting) {
 				noswaps = true;
 				int i;
 				int target;
 				int inc;
-				if(off == 1)
-				{
+				if(off == 1) {
 					i = len - 2 - c;
 					target = c - 1;
 					inc = -1;
 				}
-				else
-				{
+				else {
 					i = c;
 					target = len - 2 - c;
 					inc = 1;
 				}
 				current = target + 1;
-				while(i != target && sorting)
-				{
-					if(list[i] > list[i + 1])
-					{
+				while(i != target && sorting) {
+					if(list[i] > list[i + 1]) {
 						noswaps = false;
 						swap(i, i + 1);
 					}
@@ -816,12 +732,10 @@ public class VisualSorting
 			}
 		}
 			
-		public void heapSort()
-		{
+		public void heapSort() {
 			heapify(len);
 			int end = len - 1;
-			while(end > 0 && sorting)
-			{
+			while(end > 0 && sorting) {
 				current = end;
 				swap(end, 0);
 				end--;
@@ -831,11 +745,9 @@ public class VisualSorting
 			}
 		}
 
-		public void heapify(int n)
-		{
+		public void heapify(int n) {
 			int start = iParent(n - 1);
-			while(start >= 0 && sorting)
-			{
+			while(start >= 0 && sorting) {
 				siftDown(start, n-1);
 				start--;
 				Update();
@@ -843,28 +755,22 @@ public class VisualSorting
 			}
 		}
 
-		public void siftDown(int start, int end)
-		{
+		public void siftDown(int start, int end) {
 			int root = start;
-			while(iLeftChild(root) <= end && sorting)
-			{
+			while(iLeftChild(root) <= end && sorting) {
 				int child = iLeftChild(root);
 				int swap = root;
 				check = root;
-				if(list[swap] < list[child])
-				{
+				if(list[swap] < list[child]) {
 					swap = child;
 				}
-				if(child + 1 <= end && list[swap] < list[child + 1])
-				{
+				if(child + 1 <= end && list[swap] < list[child + 1]) {
 					swap = child + 1;
 				}
-				if(swap == root)
-				{
+				if(swap == root) {
 					return;
 				}
-				else
-				{
+				else {
 					swap(root, swap);
 					check = root;
 					root = swap;
@@ -876,41 +782,34 @@ public class VisualSorting
 			}
 		}
 		
-		public int iParent(int i)
-		{
+		public int iParent(int i) {
 			return ((i - 1) / 2);
 		}
 
-		public int iLeftChild(int i)
-		{
+		public int iLeftChild(int i) {
 			return 2 * i + 1;
 		}
 
-		public void quickSort(int lo, int hi)
-		{
+		public void quickSort(int lo, int hi) {
 			if(!sorting)
 				return;
 			current = hi;
-			if(lo < hi)
-			{
+			if(lo < hi) {
 				int p = partition(lo, hi);
 				quickSort(lo, p - 1);
 				quickSort(p + 1, hi);
 			}
 		}
 
-		public int partition(int lo, int hi)
-		{
+		public int partition(int lo, int hi) {
 			int pivot = list[hi];
 			acc++;
 			int i = lo - 1;
-			for(int j = lo; j < hi; j++)
-			{
+			for(int j = lo; j < hi; j++) {
 				check = j;
 				if(!sorting)
 					break;
-				if(list[j] < pivot)
-				{
+				if(list[j] < pivot) {
 					i++;
 					swap(i, j);
 				}
@@ -925,35 +824,29 @@ public class VisualSorting
 			return i + 1;
 		}
 
-		void merge(int l, int m, int r)
-		{
+		void merge(int l, int m, int r) {
 			int n1 = m - l + 1;
 			int n2 = r - m;
 			int L[] = new int [n1];
 			int R[] = new int [n2];
-			for(int i = 0; i < n1; i++)
-			{
+			for(int i = 0; i < n1; i++) {
 				L[i] = list[l + i];
 				acc++;
 			}
-			for(int j = 0; j < n2; j++)
-			{
+			for(int j = 0; j < n2; j++) {
 				R[j] = list[m + 1 + j];
 				acc++;
 			}
 			int i = 0, j = 0;
 			int k = l;
-			while(i < n1 && j < n2 && sorting)
-			{
+			while(i < n1 && j < n2 && sorting) {
 				check = k;
-				if(L[i] <= R[j])
-				{
+				if(L[i] <= R[j]) {
 					list[k] = L[i];
 					acc++;
 					i++;
 				}
-				else
-				{
+				else {
 					list[k] = R[j];
 					acc++;
 					j++;
@@ -963,8 +856,7 @@ public class VisualSorting
 				delay();
 				k++;
 			}
-			while(i < n1 && sorting)
-			{
+			while(i < n1 && sorting) {
 				list[k] = L[i];
 				acc++;
 				i++;
@@ -972,8 +864,7 @@ public class VisualSorting
 				Update();
 				delay();
 			}
-			while(j < n2 && sorting)
-			{
+			while(j < n2 && sorting) {
 				list[k] = R[j];
 				acc++;
 				j++;
@@ -982,10 +873,8 @@ public class VisualSorting
 				delay();
 			}
 		}
-		public void mergeSort(int l, int r)
-		{
-			if(l < r)
-			{
+		public void mergeSort(int l, int r) {
+			if(l < r) {
 				int m = (l + r) / 2;
 				current = r + 1;
 				mergeSort(l, m);
@@ -994,20 +883,16 @@ public class VisualSorting
 			}
 		}
 
-		public void pigeonholeSort()
-		{
+		public void pigeonholeSort() {
 			int mi = 0;
 			int size = len - mi + 1;
 			int[] holes = new int[size];	
-			for(int x : list)
-			{
+			for(int x : list) {
 				holes[x - mi] += 1;
 			}
 			int i = 0;
-			for(int count = 0; count < size; count++)
-			{
-				while(holes[count] > 0 && sorting)
-				{
+			for(int count = 0; count < size; count++) {
+				while(holes[count] > 0 && sorting) {
 					holes[count]--;
 					check = i;
 					list[i] = count + mi;
@@ -1019,11 +904,9 @@ public class VisualSorting
 			}
 		}
 
-		public void radixSort(int n)
-		{
+		public void radixSort(int n) {
 			int m = getMax(n);
-			for(int exp = 1; m / exp > 0; exp *= 10)
-			{
+			for(int exp = 1; m / exp > 0; exp *= 10) {
 				if(!sorting)
 					break;
 				countSort(n, exp);
@@ -1032,29 +915,24 @@ public class VisualSorting
 			}
 		}
 		
-		public void countSort(int n, int exp)
-		{
+		public void countSort(int n, int exp) {
 			int output[] = new int[n];
 			int i;
 			int count[] = new int[10];
 			Arrays.fill(count, 0);
-			for(i = 0; i < n; i++)
-			{
+			for(i = 0; i < n; i++) {
 				count[(list[i] / exp) % 10]++;
 				acc++;
 			}
-			for(i = 1; i < 10; i++)
-			{
+			for(i = 1; i < 10; i++) {
 				count[i] += count[i - 1];
 			}
-			for(i = n - 1; i >= 0; i--)
-			{
+			for(i = n - 1; i >= 0; i--) {
 				output[count[(list[i] / exp) % 10] - 1] = list[i];
 				count[(list[i] / exp) % 10]--;
 				acc++;
 			}
-			for(i = 0; i < n; i++)
-			{
+			for(i = 0; i < n; i++) {
 				if(!sorting)
 					break;
 				check = i;
@@ -1064,11 +942,9 @@ public class VisualSorting
 				delay();
 			}
 		}
-		public int getMax(int n)	
-		{
+		public int getMax(int n) {
 			int mx = list[0];
-			for(int i = 1; i < n; i++)
-			{
+			for(int i = 1; i < n; i++) {
 				if(list[i] > mx)
 				mx = list[i];
 				compare++;
@@ -1077,22 +953,17 @@ public class VisualSorting
 			return mx;
 		}
 			
-		public void timSort(int n)
-		{
+		public void timSort(int n) {
 			int RUN = 64;
-			if(len > 64)
-			{		
+			if(len > 64) {		
 				while(((double)len / RUN) % 2 != 0)
 				RUN--;
 			}
-			for(int i = 0; i < n; i += RUN)		
-			{
+			for(int i = 0; i < n; i += RUN) {
 				insertionSort(i, Math.min((i + RUN - 1), (n - 1)));
 			}
-			for(int size = RUN; size < n; size = 2 * size)
-			{
-				for(int left = 0; left < n; left += 2 * size)
-				{
+			for(int size = RUN; size < n; size = 2 * size) {
+				for(int left = 0; left < n; left += 2 * size) {
 					int mid = left + size - 1;
 					int right = Math.min((left + 2 * size - 1), (n - 1));
 					merge(left, mid, right);
@@ -1102,12 +973,9 @@ public class VisualSorting
 			}
 		}
 
-		public void bogoSort()
-		{
-			while(checkSorted() == false && sorting)
-			{
-				for(int i = 0; i < len; i++)
-				{
+		public void bogoSort() {
+			while(checkSorted() == false && sorting) {
+				for(int i = 0; i < len; i++) {
 					if(!sorting)
 						break;
 					current = i;
@@ -1126,8 +994,7 @@ public class VisualSorting
 		}	
 			
 		//Swapping Method
-		public void swap(int i1,int i2)
-		{
+		public void swap(int i1,int i2) {
 			int temp = list[i1];
 			acc++;
 			list[i1] = list[i2];
@@ -1136,12 +1003,9 @@ public class VisualSorting
 			acc++;
 		}
 	
-		public boolean checkSorted()
-		{
-			for(int i = 0; i < len - 1; i++)
-			{
-				if(list[i] > list[i + 1])
-				{
+		public boolean checkSorted() {
+			for(int i = 0; i < len - 1; i++) {
+				if(list[i] > list[i + 1]) {
 					acc += 2;
 					return false;
 				}
