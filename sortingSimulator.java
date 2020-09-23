@@ -457,7 +457,7 @@ public class VisualSorting {
 					}					
 					if(flag == 0) {
 						k++;
-						shuffleList1();	
+						shuffleList_user();	
 						reset();
 					}
 				}
